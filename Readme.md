@@ -41,8 +41,79 @@ NOTE: PyPI integration will be finished after first release for easy to
 install
 
 ### Config
+Glim has configuration module for application wide constants. The default configuration resides in `app/config/default.py`. The config structure is the following;
+
+```
+# config.py
+extensions = [
+    # bunch of extensions to be loaded up when web server starts
+    # 'gredis'
+]
+
+config = {
+
+    'extensions' : {
+
+        # 'gredis' : {
+        #   'default' : {
+        #       'host' : 'localhost',
+        #       'port' : '1234',
+        #       'db'   : 0
+        #   }
+        # }
+    },
+
+    # database configuration
+    'db' : {
+        'default' : {
+            'driver' : 'mysql',
+            'host' : 'localhost',
+            'schema' : 'test',
+            'user' : 'root',
+            'password' : '',
+        },
+    },
+
+    # app specific configurations
+    # reloader: detects changes in the code base and automatically restarts web server
+    # debugger: enable werkzeug's default debugger
+
+    'glim' : {
+        'reloader' : True,
+        'debugger' : True
+    }
+}
+```
+
+In `extensions` list, there will be enabled extensions which have extension name like `gredis`.
+
+In `config` dict, there are configurations for extensions, db and glim.
+
+It can be created custom configuration variables. These variables can be accessible with `Config.get()`. It can be deeply accessed by the following;
+
+```python
+Config.get('db.default.user')
+# returns 'root'
+
+Config.set('db.default.password', 'glim-rocks')
+# sets config['db']['default']['password'] as 'glim-rocks'
+```
+
+Framework wide configuration should reside in `glim` dict.
+
 #### Environments
-#### The config structure
+In glim, the default environment can't be used because it is a **sample** of configuration. To create a development environment, type the following;
+
+```
+$ cp app/config/default.py app/config/development.py
+```
+
+Now, we have a development environment. We can start a web server with a defined environment by following;
+```
+$ python glim.py --host 127.0.0.1 --port 8080 --env development
+```
+
+This loads configuration of `app/config/development.py` config.
 
 ### Routing
 Glim has powerful routing feature which developers can define routes
