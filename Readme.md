@@ -15,14 +15,12 @@ $ git clone git@github.com:aacanakin/glim.git
 ```
 Install pip if not installed
 ```
-
+$ sudo easy_install pip
 ```
 Install virtualenv
 ```
 $ sudo easy_install virtualenv
-```
 OR
-```
 $ sudo pip install virtualenv
 ```
 Create & activate virtualenv inside `glim` folder
