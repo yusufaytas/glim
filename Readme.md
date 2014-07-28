@@ -129,6 +129,7 @@ To make controllers restful, it is highly recommended to extend
 `RestfulController` class. The simplest restful controller would be the
 following;
 ```python
+# controllers.py
 from glim.core import RestController
 from werkzeug.wrappers import Response
 
