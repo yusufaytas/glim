@@ -1,268 +1,80 @@
-<!DOCTYPE html>
+<!doctype html>
+<!--
+
+  Instructions:
+
+  - Save this file.
+  - Replace "USER" with your GitHub username.
+  - Replace "REPO" with your GitHub repo name.
+  - Replace "Your Project" with your project name.
+  - Upload this file (or commit to GitHub Pages).
+
+  Customize as you see fit!
+
+-->
 <html>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width">
 
-  <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Glim : the small &amp; lightweight mc (Model, Controller) framework on top of werkzeug" />
+  <title>glim</title>
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+  <!-- Flatdoc -->
+  <script
+src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script
+src='http://rstacruz.github.io/flatdoc/v/0.8.6/legacy.js'></script>
+  <script
+src='http://rstacruz.github.io/flatdoc/v/0.8.6/flatdoc.js'></script>
 
-    <title>Glim</title>
-  </head>
+  <!-- Flatdoc theme -->
+  <link
+href='http://rstacruz.github.io/flatdoc/v/0.8.6/theme-white/style.css'
+rel='stylesheet'>
+  <script
+src='http://rstacruz.github.io/flatdoc/v/0.8.6/theme-white/script.js'></script>
 
-  <body>
+  <!-- Meta -->
+  <meta content="glim" property="og:title">
+  <meta content="The lightweight framework for easy and fast web app
+development"
+name="description">
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/aacanakin/glim">View on GitHub</a>
+  <!-- Initializer -->
+  <script>
+    Flatdoc.run({
+	fetcher: Flatdoc.file('Readme.md')
+    });
+  </script>
+</head>
+<body role='flatdoc'>
 
-          <h1 id="project_title">Glim</h1>
-          <h2 id="project_tagline">the small &amp; lightweight mc (Model, Controller) framework on top of werkzeug</h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/aacanakin/glim/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/aacanakin/glim/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
+  <div class='header'>
+    <div class='left'>
+      <h1>glim</h1>
+      <ul>
+        <li><a href='https://github.com/aacanakin/glim'>View on
+GitHub</a></li>
+        <li><a
+href='https://github.com/aacanakin/glim/issues'>Issues</a></li>
+      </ul>
     </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <p>Glim is the new framework for API design for python. It has no view layers at least currently. The main idea to build a small structure of a web app that can handle requests. It has SQLAlchemy integration that can map models to DB dynamically. Moreover, it has integration with werkzeug and some powerful features about routing</p>
-
-<h3>
-<a name="1---installation" class="anchor" href="#1---installation"><span class="octicon octicon-link"></span></a>1 - Installation</h3>
-
-<p>Currently, only cloning this repo is required for the app. However, virtualenv can be used for installing pip dependancies of the project.</p>
-
-<p>Clone the repo</p>
-
-<pre><code>$ git clone git@github.com:aacanakin/glim.git
-</code></pre>
-
-<p>Install virtualenv</p>
-
-<pre><code>$ sudo easy_install virtualenv
-</code></pre>
-
-<p>OR</p>
-
-<pre><code>$ sudo pip install virtualenv
-</code></pre>
-
-<p>Create &amp; activate virtualenv inside <code>glim</code> folder</p>
-
-<pre><code>$ virtualenv venv
-$ . venv/bin/activate
-</code></pre>
-
-<p>Install dependencies</p>
-
-<pre><code>$ pip install -r reqs
-</code></pre>
-
-<p>Start web server</p>
-
-<pre><code>$ python glim.py start
-</code></pre>
-
-<p>NOTE: PyPI integration will be finished after first release for easy to install</p>
-
-<h3>
-<a name="2---config" class="anchor" href="#2---config"><span class="octicon octicon-link"></span></a>2 - Config</h3>
-
-<h4>
-<a name="21---environments" class="anchor" href="#21---environments"><span class="octicon octicon-link"></span></a>2.1 - Environments</h4>
-
-<h4>
-<a name="22---the-config-structure" class="anchor" href="#22---the-config-structure"><span class="octicon octicon-link"></span></a>2.2 - The config structure</h4>
-
-<h3>
-<a name="3---routing" class="anchor" href="#3---routing"><span class="octicon octicon-link"></span></a>3 - Routing</h3>
-
-<p>Glim has powerful routing feature which developers can define routes which will be mapped to controllers. The route definition file is at <code>app/routes.py</code> The simplest route definition would be the following;</p>
-
-<div class="highlight highlight-python"><pre><span class="c"># routes.py</span>
-<span class="n">urls</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s">'/'</span> <span class="p">:</span> <span class="s">'BaseController.hello'</span>
-    <span class="s">'/restful'</span> <span class="p">:</span> <span class="s">'BaseController'</span>
-<span class="p">}</span>
-</pre></div>
-
-<p>This definition simply means that the root route '/' will be mapped into
-<code>BaseController</code>'s <code>hello()</code> function.</p>
-
-<p>As you might notice, there exists '/restful' route which maps 'BaseController' request methods. That means a <code>POST /restful</code> will be mapped into
-<code>BaseController.post()</code>. The supported requests methods are <code>get, post, put, patch, delete</code>.</p>
-
-<h4>
-<a name="31---route-filtering" class="anchor" href="#31---route-filtering"><span class="octicon octicon-link"></span></a>3.1 - Route filtering</h4>
-
-<p>One of the great feature of routing system is filtering. You can define filters which will be run sequential. This feature is mostly used in input validation. The simplest route filtering would be the following;</p>
-
-<div class="highlight highlight-python"><pre><span class="c"># routes.py</span>
-<span class="n">urls</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s">'/'</span> <span class="p">:</span> <span class="p">[</span>
-        <span class="s">'BaseController.validate'</span><span class="p">,</span>
-        <span class="s">'BaseController.hello'</span>
-    <span class="p">]</span>
-<span class="p">}</span>
-</pre></div>
-
-<p>This definition simply means that the root route '/' is mapped to
-<code>BaseController</code>'s <code>validate()</code> &amp; <code>hello()</code> function sequentially.</p>
-
-<p><strong>Important Note</strong>: If <code>validate()</code> function returns an instance of <code>Response</code>, then <code>hello()</code> function won't be called</p>
-
-<h4>
-<a name="32---route-grouping" class="anchor" href="#32---route-grouping"><span class="octicon octicon-link"></span></a>3.2 - Route grouping</h4>
-
-<p>This is also one of the greatest feature of glim. People always want to create grouped routes. The simplest route grouping would be the following;</p>
-
-<div class="highlight highlight-python"><pre><span class="c"># routes.py</span>
-<span class="n">urls</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s">'/api'</span> <span class="p">:</span> <span class="p">{</span>
-        <span class="s">'/auth'</span> <span class="p">:</span> <span class="s">'ApiController.auth'</span><span class="p">,</span>
-        <span class="s">'/me'</span> <span class="p">:</span> <span class="p">[</span>
-            <span class="s">'ApiController.check_auth'</span><span class="p">,</span>
-            <span class="s">'ApiController.me'</span>
-        <span class="p">]</span>
-    <span class="p">}</span> 
-<span class="p">}</span>
-</pre></div>
-
-<p>Here, we have defined two routes; <code>/api/auth</code> &amp; <code>/api/me</code>. The <code>/api/me</code> function has a filter namely <code>check_auth</code> as you noticed.</p>
-
-<p><strong>Important Note</strong>: In route grouping, you need to define filters for each endpoint repeatedly for not having ambiguous definition for routes.</p>
-
-<h3>
-<a name="4---controllers" class="anchor" href="#4---controllers"><span class="octicon octicon-link"></span></a>4 - Controllers</h3>
-
-<p>The controllers are no different than any other MVC framework's controllers. The controllers file resides in <code>app/controllers.py</code>. The simplest controller definition would be the following;</p>
-
-<div class="highlight highlight-python"><pre><span class="c"># controllers.py</span>
-<span class="kn">from</span> <span class="nn">glim.core</span> <span class="kn">import</span> <span class="n">Controller</span>
-<span class="kn">from</span> <span class="nn">werkzeug.wrappers</span> <span class="kn">import</span> <span class="n">Response</span>
-
-<span class="k">class</span> <span class="nc">BaseController</span><span class="p">(</span><span class="n">Controller</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
-        <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="s">'Hello World Mate!'</span><span class="p">)</span>
-</pre></div>
-
-<p>This controller definition could be mapped to routes as <code>BaseController.hello</code>
-To see this text on browser, <code>Response</code> object should be returned</p>
-
-<h4>
-<a name="41---restful-controllers" class="anchor" href="#41---restful-controllers"><span class="octicon octicon-link"></span></a>4.1 - Restful controllers</h4>
-
-<p>To make controllers restful, it is highly recommended to extend <code>RestfulController</code> class. The simplest restful controller would be the following;</p>
-
-<div class="highlight highlight-python"><pre><span class="kn">from</span> <span class="nn">glim.core</span> <span class="kn">import</span> <span class="n">RestController</span>
-<span class="kn">from</span> <span class="nn">werkzeug.wrappers</span> <span class="kn">import</span> <span class="n">Response</span>
-
-<span class="k">class</span> <span class="nc">RestfulController</span><span class="p">(</span><span class="n">RestController</span><span class="p">):</span>
-
-    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="s">'RESTful GET'</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="s">'RESTful POST'</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="s">'RESTful PUT'</span><span class="p">)</span>
-</pre></div>
-
-<p><strong>Important Note</strong>: A restful controller can not be used as a route filter</p>
-
-<h3>
-<a name="5---models" class="anchor" href="#5---models"><span class="octicon octicon-link"></span></a>5 - Models</h3>
-
-<p>This layer is used for SQLAlchemy model integration to glim. In glim, models are mapped to database tables dynamically w/ SQLAlchemy. The models file resides in <code>app/models.py</code>. The simplest model definition would be the following;</p>
-
-<div class="highlight highlight-python"><pre><span class="c"># models.py</span>
-<span class="kn">from</span> <span class="nn">glim.core</span> <span class="kn">import</span> <span class="n">Model</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">Column</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">String</span>
-
-<span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
-
-    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s">'users'</span>
-    <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
-    <span class="n">fullname</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">255</span><span class="p">))</span>
-    <span class="n">title</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">255</span><span class="p">))</span>
-
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s">"&lt;User (name = </span><span class="si">%s</span><span class="s">,title = </span><span class="si">%s</span><span class="s">)"</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">full_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
-</pre></div>
-
-<p>This is not any different than it is documented on SQLAlchemy's documentation website.</p>
-
-<h3>
-<a name="6---services" class="anchor" href="#6---services"><span class="octicon octicon-link"></span></a>6 - Services</h3>
-
-<p>Services is not a must layer but it is very useful for seperating database models with model or db operations. The services file resides in <code>app/services.py</code>. Assume that we have a model namely <code>User</code> above, the simplest service definition would be the following;</p>
-
-<div class="highlight highlight-python"><pre><span class="c"># services.py</span>
-<span class="kn">from</span> <span class="nn">glim.core</span> <span class="kn">import</span> <span class="n">Service</span>
-<span class="kn">from</span> <span class="nn">glim.facades</span> <span class="kn">import</span> <span class="n">Database</span> <span class="k">as</span> <span class="n">DB</span><span class="p">,</span> <span class="n">Orm</span> <span class="k">as</span> <span class="n">ORM</span>
-<span class="kn">from</span> <span class="nn">models</span> <span class="kn">import</span> <span class="n">User</span>
-
-<span class="k">class</span> <span class="nc">UserService</span><span class="p">(</span><span class="n">Service</span><span class="p">):</span>
-    <span class="nd">@staticmethod</span>   
-    <span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="n">full_name</span> <span class="o">=</span> <span class="s">'Aras Can'</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s">'glim developer'</span><span class="p">):</span>
-        <span class="c"># DB.execute("INSERT INTO users (full_name, title) VALUES ('%s', '%s')" % (full_name, title))</span>
-
-        <span class="c"># generate an instance of User</span>
-        <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span><span class="n">fullname</span> <span class="o">=</span> <span class="s">"Aras Can Akin"</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s">"glim developer"</span><span class="p">)</span>
-
-        <span class="c"># writes a new user to the database session</span>
-        <span class="n">ORM</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
-
-        <span class="c"># commits as SQLAlchemy suggests</span>
-        <span class="n">ORM</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
-</pre></div>
-
-<p>From my perspective, Services should be stateless and therefore <code>static</code>. However, it's not a must to use them static. You can instantiate in controllers to use them.</p>
-
-<p>In controllers, <code>UserService.register(full_name, title)</code> would register a user in the database.</p>
-
-<h3>
-<a name="7---extension-system" class="anchor" href="#7---extension-system"><span class="octicon octicon-link"></span></a>7 - Extension System</h3>
-
-<h4>
-<a name="71---config" class="anchor" href="#71---config"><span class="octicon octicon-link"></span></a>7.1 - Config</h4>
-
-<h4>
-<a name="72---integration" class="anchor" href="#72---integration"><span class="octicon octicon-link"></span></a>7.2 - Integration</h4>
-
-<h4>
-<a name="73---a-redis-extension-example" class="anchor" href="#73---a-redis-extension-example"><span class="octicon octicon-link"></span></a>7.3 - A redis extension example</h4>
-
-<h3>
-<a name="8---internal-framework-components" class="anchor" href="#8---internal-framework-components"><span class="octicon octicon-link"></span></a>8 - Internal Framework Components</h3>
-
-<h4>
-<a name="81---facades" class="anchor" href="#81---facades"><span class="octicon octicon-link"></span></a>8.1 - Facades</h4>
-
-<h4>
-<a name="82---the-registry" class="anchor" href="#82---the-registry"><span class="octicon octicon-link"></span></a>8.2 - The registry</h4>
-
-<h4>
-<a name="83---database--orm" class="anchor" href="#83---database--orm"><span class="octicon octicon-link"></span></a>8.3 - Database &amp; ORM</h4>
-      </section>
+    <div class='right'>
+      <!-- GitHub buttons: see http://ghbtns.com -->
+      <iframe
+src="http://ghbtns.com/github-btn.html?user=aacanakin&amp;repo=glim&amp;type=watch&amp;count=true"
+allowtransparency="true" frameborder="0" scrolling="0" width="110"
+height="20"></iframe>
     </div>
+  </div>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Glim maintained by <a href="https://github.com/aacanakin">aacanakin</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
+  <div class='content-root'>
+    <div class='menubar'>
+      <div class='menu section' role='flatdoc-menu'></div>
     </div>
+    <div role='flatdoc-content' class='content'></div>
+  </div>
 
-    
-
-  </body>
+</body>
 </html>
