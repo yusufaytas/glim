@@ -1,71 +1,258 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
+
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Glim by aacanakin</title>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Glim : the small &amp; lightweight mc (Model, Controller) framework on top of werkzeug" />
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Glim</title>
   </head>
+
   <body>
-    <div class="wrapper">
-      <header>
-        <h1>Glim</h1>
-        <p>the small &amp; lightweight mc (Model, Controller) framework on top of werkzeug</p>
 
-        <p class="view"><a href="https://github.com/aacanakin/glim">View the Project on GitHub <small>aacanakin/glim</small></a></p>
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/aacanakin/glim">View on GitHub</a>
 
+          <h1 id="project_title">Glim</h1>
+          <h2 id="project_tagline">the small &amp; lightweight mc (Model, Controller) framework on top of werkzeug</h2>
 
-        <ul>
-          <li><a href="https://github.com/aacanakin/glim/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/aacanakin/glim/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/aacanakin/glim">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/aacanakin/glim/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/aacanakin/glim/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <p>Glim is the new framework for API design for python. It has no view layers at least currently. The main idea to build a small structure of a web app that can handle requests. It has SQLAlchemy integration that can map models to DB dynamically. Moreover, it has integration with werkzeug and some powerful features about routing</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
+<h1>
+<a name="1---installation" class="anchor" href="#1---installation"><span class="octicon octicon-link"></span></a>1 - Installation</h1>
+
+<p>Currently, only cloning this repo is required for the app. However, virtualenv can be used for installing pip dependancies of the project.</p>
+
+<ul>
+<li>Clone the repo
+<code>$ git clone git@github.com:aacanakin/glim.git</code>
+</li>
+<li>Install virtualenv
+<code>$ sudo easy_install virtualenv</code>
+OR
+<code>$ sudo pip install virtualenv</code>
+</li>
+<li>create &amp; activate virtualenv inside <code>glim</code> folder</li>
+</ul><pre><code>$ virtualenv venv
+$ . venv/bin/activate
 </code></pre>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<ul>
+<li>install dependencies
+<code>$ pip install -r reqs</code>
+</li>
+<li>start web server
+<code>$ python glim.py start</code>
+</li>
+</ul><p>NOTE: PyPI integration will be finished after first release for easy to install</p>
 
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<h1>
+<a name="2---config" class="anchor" href="#2---config"><span class="octicon octicon-link"></span></a>2 - Config</h1>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<h2>
+<a name="21---environments" class="anchor" href="#21---environments"><span class="octicon octicon-link"></span></a>2.1 - Environments</h2>
 
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+<h2>
+<a name="22---the-config-structure--its-calls" class="anchor" href="#22---the-config-structure--its-calls"><span class="octicon octicon-link"></span></a>2.2 - The config structure &amp; it's calls</h2>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<h1>
+<a name="3---routing" class="anchor" href="#3---routing"><span class="octicon octicon-link"></span></a>3 - Routing</h1>
 
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+<p>Glim has powerful routing feature which developers can define routes which will be mapped to controllers. The route definition file is at <code>app/routes.py</code> The simplest route definition would be the following;</p>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<div class="highlight highlight-python"><pre><span class="c"># routes.py</span>
+<span class="n">urls</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'/'</span> <span class="p">:</span> <span class="s">'BaseController.hello'</span>
+    <span class="s">'/restful'</span> <span class="p">:</span> <span class="s">'BaseController'</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+<p>This definition simply means that the root route '/' will be mapped into
+<code>BaseController</code>'s <code>hello()</code> function.</p>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+<p>As you might notice, there exists '/restful' route which maps 'BaseController' request methods. That means a <code>POST /restful</code> will be mapped into
+<code>BaseControoler.post()</code>. The supported requests methods are <code>get, post, put, patch, delete</code>.</p>
+
+<h2>
+<a name="31---route-filtering" class="anchor" href="#31---route-filtering"><span class="octicon octicon-link"></span></a>3.1 - Route filtering</h2>
+
+<p>One of the great feature of routing system is filtering. You can define filters which will be run sequential. This feature is mostly used in input validation. The simplest route filtering would be the following;</p>
+
+<div class="highlight highlight-python"><pre><span class="c"># routes.py</span>
+<span class="n">urls</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'/'</span> <span class="p">:</span> <span class="p">[</span>
+        <span class="s">'BaseController.validate'</span><span class="p">,</span>
+        <span class="s">'BaseController.hello'</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>This definition simply means that the root route '/' is mapped to
+<code>BaseController</code>'s <code>validate()</code> &amp; <code>hello()</code> function sequentially.</p>
+
+<p><strong>Important Note</strong>: If <code>validate()</code> function returns an instance of <code>Response</code>, then <code>hello()</code> function won't be called</p>
+
+<h2>
+<a name="32---route-grouping" class="anchor" href="#32---route-grouping"><span class="octicon octicon-link"></span></a>3.2 - Route grouping</h2>
+
+<p>This is also one of the greatest feature of glim. People always want to create grouped routes. The simplest route grouping would be the following;</p>
+
+<div class="highlight highlight-python"><pre><span class="c"># routes.py</span>
+<span class="n">urls</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'/api'</span> <span class="p">:</span> <span class="p">{</span>
+        <span class="s">'/auth'</span> <span class="p">:</span> <span class="s">'ApiController.auth'</span><span class="p">,</span>
+        <span class="s">'/me'</span> <span class="p">:</span> <span class="p">[</span>
+            <span class="s">'ApiController.check_auth'</span><span class="p">,</span>
+            <span class="s">'ApiController.me'</span>
+        <span class="p">]</span>
+    <span class="p">}</span> 
+<span class="p">}</span>
+</pre></div>
+
+<p>Here, we have defined two routes; <code>/api/auth</code> &amp; <code>/api/me</code>. The <code>/api/me</code> function has a filter namely <code>check_auth</code> as you noticed.</p>
+
+<p><strong>Important Note</strong>: In route grouping, you need to define filters for each endpoint repeatedly for not having ambiguous definition for routes.</p>
+
+<h1>
+<a name="4---controllers" class="anchor" href="#4---controllers"><span class="octicon octicon-link"></span></a>4 - Controllers</h1>
+
+<p>The controllers are no different than any other MVC framework's controllers. The controllers file resides in <code>app/controllers.py</code>. The simplest controller definition would be the following;</p>
+
+<div class="highlight highlight-python"><pre><span class="c"># controllers.py</span>
+<span class="kn">from</span> <span class="nn">glim.core</span> <span class="kn">import</span> <span class="n">Controller</span>
+<span class="kn">from</span> <span class="nn">werkzeug.wrappers</span> <span class="kn">import</span> <span class="n">Response</span>
+
+<span class="k">class</span> <span class="nc">BaseController</span><span class="p">(</span><span class="n">Controller</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="s">'Hello World Mate!'</span><span class="p">)</span>
+</pre></div>
+
+<p>This controller definition could be mapped to routes as <code>BaseController.hello</code>
+To see this text on browser, <code>Response</code> object should be returned</p>
+
+<h2>
+<a name="41---restful-controllers" class="anchor" href="#41---restful-controllers"><span class="octicon octicon-link"></span></a>4.1 - Restful controllers</h2>
+
+<p>To make controllers restful, it is highly recommended to extend <code>RestfulController</code> class. The simplest restful controller would be the following;</p>
+
+<div class="highlight highlight-python"><pre><span class="kn">from</span> <span class="nn">glim.core</span> <span class="kn">import</span> <span class="n">RestController</span>
+<span class="kn">from</span> <span class="nn">werkzeug.wrappers</span> <span class="kn">import</span> <span class="n">Response</span>
+
+<span class="k">class</span> <span class="nc">RestfulController</span><span class="p">(</span><span class="n">RestController</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="s">'RESTful GET'</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="s">'RESTful POST'</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="s">'RESTful PUT'</span><span class="p">)</span>
+</pre></div>
+
+<p><strong>Important Note</strong>: A restful controller can not be used as a route filter</p>
+
+<h1>
+<a name="5---models" class="anchor" href="#5---models"><span class="octicon octicon-link"></span></a>5 - Models</h1>
+
+<p>This layer is used for SQLAlchemy model integration to glim. In glim, models are mapped to database tables dynamically w/ SQLAlchemy. The models file resides in <code>app/models.py</code>. The simplest model definition would be the following;</p>
+
+<div class="highlight highlight-python"><pre><span class="c"># models.py</span>
+<span class="kn">from</span> <span class="nn">glim.core</span> <span class="kn">import</span> <span class="n">Model</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">Column</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">String</span>
+
+<span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s">'users'</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+    <span class="n">fullname</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">255</span><span class="p">))</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">255</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">"&lt;User (name = </span><span class="si">%s</span><span class="s">,title = </span><span class="si">%s</span><span class="s">)"</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">full_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+</pre></div>
+
+<p>This is not any different than it is documented on SQLAlchemy's documentation website.</p>
+
+<h1>
+<a name="6---services" class="anchor" href="#6---services"><span class="octicon octicon-link"></span></a>6 - Services</h1>
+
+<p>Services is not a must layer but it is very useful for seperating database models with model or db operations. The services file resides in <code>app/services.py</code>. Assume that we have a model namely <code>User</code> above, the simplest service definition would be the following;</p>
+
+<div class="highlight highlight-python"><pre><span class="c"># services.py</span>
+<span class="kn">from</span> <span class="nn">glim.core</span> <span class="kn">import</span> <span class="n">Service</span>
+<span class="kn">from</span> <span class="nn">glim.facades</span> <span class="kn">import</span> <span class="n">Database</span> <span class="k">as</span> <span class="n">DB</span><span class="p">,</span> <span class="n">Orm</span> <span class="k">as</span> <span class="n">ORM</span>
+<span class="kn">from</span> <span class="nn">models</span> <span class="kn">import</span> <span class="n">User</span>
+
+<span class="k">class</span> <span class="nc">UserService</span><span class="p">(</span><span class="n">Service</span><span class="p">):</span>
+    <span class="nd">@staticmethod</span>   
+    <span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="n">full_name</span> <span class="o">=</span> <span class="s">'Aras Can'</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s">'glim developer'</span><span class="p">):</span>
+        <span class="c"># DB.execute("INSERT INTO users (full_name, title) VALUES ('%s', '%s')" % (full_name, title))</span>
+
+        <span class="c"># generate an instance of User</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span><span class="n">fullname</span> <span class="o">=</span> <span class="s">"Aras Can Akin"</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s">"glim developer"</span><span class="p">)</span>
+
+        <span class="c"># writes a new user to the database session</span>
+        <span class="n">ORM</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+
+        <span class="c"># commits as SQLAlchemy suggests</span>
+        <span class="n">ORM</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</pre></div>
+
+<p>From my perspective, Services should be stateless and therefore <code>static</code>. However, it's not a must to use them static. You can instantiate in controllers to use them.</p>
+
+<p>In controllers, <code>UserService.register(full_name, title)</code> would register a user in the database.</p>
+
+<h1>
+<a name="7---extension-system" class="anchor" href="#7---extension-system"><span class="octicon octicon-link"></span></a>7 - Extension System</h1>
+
+<h2>
+<a name="71---config" class="anchor" href="#71---config"><span class="octicon octicon-link"></span></a>7.1 - Config</h2>
+
+<h2>
+<a name="72---integration" class="anchor" href="#72---integration"><span class="octicon octicon-link"></span></a>7.2 - Integration</h2>
+
+<h2>
+<a name="73---a-redis-extension-example" class="anchor" href="#73---a-redis-extension-example"><span class="octicon octicon-link"></span></a>7.3 - A redis extension example</h2>
+
+<h1>
+<a name="8---internal-framework-components" class="anchor" href="#8---internal-framework-components"><span class="octicon octicon-link"></span></a>8 - Internal Framework Components</h1>
+
+<h2>
+<a name="81---facades" class="anchor" href="#81---facades"><span class="octicon octicon-link"></span></a>8.1 - Facades</h2>
+
+<h2>
+<a name="82---the-registry" class="anchor" href="#82---the-registry"><span class="octicon octicon-link"></span></a>8.2 - The registry</h2>
+
+<h2>
+<a name="83---database--orm" class="anchor" href="#83---database--orm"><span class="octicon octicon-link"></span></a>8.3 - Database &amp; ORM</h2>
       </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/aacanakin">aacanakin</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Glim maintained by <a href="https://github.com/aacanakin">aacanakin</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
+
     
+
   </body>
 </html>
