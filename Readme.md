@@ -1,11 +1,11 @@
-### glim
+### Getting Started
 Glim is the new framework for API design for python. It has no view
 layers at least currently. The main idea to build a small structure of a
 web app that can handle requests. It has SQLAlchemy integration that can
 map models to DB dynamically. Moreover, it has integration with werkzeug
 and some powerful features about routing
 
-### Installation
+#### Installation
 Currently, only cloning this repo is required for the app. However,
 virtualenv can be used for installing pip dependancies of the project.
 
@@ -260,7 +260,7 @@ class UserService(Service):
         # '%s')" % (full_name, title))
 
         # generate an instance of User
-        user = User(fullname = "Aras Can Akin", title = "glim developer")
+        user = User(full_name, title)
 
         # writes a new user to the database session
         ORM.add(user)
@@ -276,9 +276,67 @@ In controllers, `UserService.register(full_name, title)` would register
 a user in the database.
 
 ### Extension System
+Glim has an extension system that enables developers to deeply integrate modules into glim. In `glim.core` module there exists two classes for extension development namely `Extension` and `Facade`. In glim, facades are used to register an instance of object statically with respect to config for usage. Therefore, **if you want an extension to be loaded up during web server start**, you need to extend facade.
+
 #### Configuration
-#### Integration
-#### A redis extension example
+Currently, it is needed to write config of extension in main config file in extensions. Assume that we have a redis extension namely `"gredis"`. The config inside extensions would be the following;
+
+```python
+#config.py
+extensions = [
+    'gredis'
+]
+config = {
+    'extensions' = {
+        'gredis' : {
+            'default' : {
+                'host' : 'localhost',
+                'port' : 1234,
+                'db' : 0
+            }
+        }
+    }
+}
+```
+
+An example of a redis extension would be the following;
+
+```python
+from glim.core import Extension, Facade
+import redis
+
+class GredisExtension(Extension):
+    def __init__(self, config):
+        self.config = config
+        self.active = 'default'
+        self.connections = {}
+
+        for k, config in self.config.items():
+            self.connections[k] = redis.StrictRedis(
+                host = config['host'],
+                port = config['port'],
+                db = config['db']
+            )
+
+    def __getattr__(self, attr):
+        return getattr(self.connections[self.active], attr)
+
+    def connection(self, key = None):
+        if key:
+            self.active = key
+        else:
+            self.active = 'default'
+
+class Gredis(Facade):
+    pass
+```
+
+When you start the web server, `GredisExtension` class would be instantiated with config inside config.py and put inside `Gredis` class which is a `Facade`. It is accessible `Gredis.get('foo', 'bar')`.
+
+Extending `Facade` is completely optional but highly recommended. If `Facade` extension is not used, then configuration is not needed.
+
+The name convention is the following;
+- The class to be instantiated and registered should have name with `<module>Extension` and the facade name should be same as module name if facades are used. Otherwise, there aren't any conventions
 
 ### Internal Framework Components
 #### Facades
