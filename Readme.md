@@ -1,4 +1,4 @@
-### GLIM
+### glim
 Glim is the new framework for API design for python. It has no view
 layers at least currently. The main idea to build a small structure of a
 web app that can handle requests. It has SQLAlchemy integration that can
