@@ -302,6 +302,7 @@ config = {
 An example of a redis extension would be the following;
 
 ```python
+# ext/gredis.py
 from glim.core import Extension, Facade
 import redis
 
