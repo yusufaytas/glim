@@ -5,7 +5,7 @@ web app that can handle requests. It has SQLAlchemy integration that can
 map models to DB dynamically. Moreover, it has integration with werkzeug
 and some powerful features about routing
 
-### 1 - Installation
+### Installation
 Currently, only cloning this repo is required for the app. However,
 virtualenv can be used for installing pip dependancies of the project.
 
@@ -40,11 +40,11 @@ $ python glim.py start
 NOTE: PyPI integration will be finished after first release for easy to
 install
 
-### 2 - Config
-#### 2.1 - Environments
-#### 2.2 - The config structure
+### Config
+#### Environments
+#### The config structure
 
-### 3 - Routing
+### Routing
 Glim has powerful routing feature which developers can define routes
 which will be mapped to controllers. The route definition file is at
 `app/routes.py` The simplest route definition would be the following;
@@ -65,7 +65,7 @@ mapped into
 `BaseController.post()`. The supported requests methods are `get, post,
 put, patch, delete`.
 
-#### 3.1 - Route filtering
+#### Route filtering
 One of the great feature of routing system is filtering. You can define
 filters which will be run sequential. This feature is mostly used in
 input validation. The simplest route filtering would be the following;
@@ -85,7 +85,7 @@ This definition simply means that the root route '/' is mapped to
 **Important Note**: If `validate()` function returns an instance of
 `Response`, then `hello()` function won't be called
 
-#### 3.2 - Route grouping
+#### Route grouping
 This is also one of the greatest feature of glim. People always want to
 create grouped routes. The simplest route grouping would be the
 following;
@@ -107,7 +107,7 @@ function has a filter namely `check_auth` as you noticed.
 **Important Note**: In route grouping, you need to define filters for
 each endpoint repeatedly for not having ambiguous definition for routes.
 
-### 4 - Controllers
+### Controllers
 The controllers are no different than any other MVC framework's
 controllers. The controllers file resides in `app/controllers.py`. The
 simplest controller definition would be the following;
@@ -124,7 +124,7 @@ This controller definition could be mapped to routes as
 `BaseController.hello`
 To see this text on browser, `Response` object should be returned
 
-#### 4.1 - Restful controllers
+#### Restful controllers
 To make controllers restful, it is highly recommended to extend
 `RestfulController` class. The simplest restful controller would be the
 following;
@@ -147,7 +147,7 @@ class RestfulController(RestController):
 **Important Note**: A restful controller can not be used as a route
 filter
 
-### 5 - Models
+### Models
 This layer is used for SQLAlchemy model integration to glim. In glim,
 models are mapped to database tables dynamically w/ SQLAlchemy. The
 models file resides in `app/models.py`. The simplest model definition
@@ -171,7 +171,7 @@ self.title)
 This is not any different than it is documented on SQLAlchemy's
 documentation website.
 
-### 6 - Services
+### Services
 Services is not a must layer but it is very useful for seperating
 database models with model or db operations. The services file resides
 in `app/services.py`. Assume that we have a model namely `User` above,
@@ -204,13 +204,13 @@ instantiate in controllers to use them.
 In controllers, `UserService.register(full_name, title)` would register
 a user in the database.
 
-### 7 - Extension System
-#### 7.1 - Config
-#### 7.2 - Integration
-#### 7.3 - A redis extension example
+### Extension System
+#### Configuration
+#### Integration
+#### A redis extension example
 
-### 8 - Internal Framework Components
-#### 8.1 - Facades
-#### 8.2 - The registry
-#### 8.3 - Database & ORM
+### Internal Framework Components
+#### Facades
+#### The registry
+#### Database & ORM
 
