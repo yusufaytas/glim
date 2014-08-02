@@ -5,34 +5,49 @@ web app that can handle requests. It has SQLAlchemy integration that can
 map models to DB dynamically. Moreover, it has integration with werkzeug
 and some powerful features about routing
 
-### Installation
+### Installation & Quickstart
 Currently, only cloning this repo is required for the app. However,
 virtualenv can be used for installing pip dependancies of the project.
 
+Create a dir
+```
+$ mkdir <project-name>
+```
+
 Clone the repo
 ```
-$ git clone git@github.com:aacanakin/glim.git
+$ git clone git@github.com:aacanakin/glim.git <project-name>
 ```
+
 Install pip if not installed
 ```
 $ sudo easy_install pip
 ```
+
 Install virtualenv
 ```
 $ sudo easy_install virtualenv
 OR
 $ sudo pip install virtualenv
 ```
+
 Create & activate virtualenv inside `glim` folder
 ```
 $ virtualenv venv
 $ . venv/bin/activate
 ```
+
 Install dependencies
 ```
 $ pip install -r reqs
 ```
-Start web server
+
+Generate a new app
+```
+$ python glim.py new
+```
+
+Start the web server
 ```
 $ python glim.py start
 ```
@@ -115,6 +130,8 @@ $ python glim.py --host 127.0.0.1 --port 8080 --env development
 
 This loads configuration of `app/config/development.py` config.
 
+## App structure
+
 ## Routing
 Glim has powerful routing feature which developers can define routes
 which will be mapped to controllers. The route definition file is at
@@ -136,7 +153,7 @@ mapped into
 `BaseController.post()`. The supported requests methods are `get, post,
 put, patch, delete`.
 
-### Route filtering
+### Filtering
 One of the great feature of routing system is filtering. You can define
 filters which will be run sequential. This feature is mostly used in
 input validation. The simplest route filtering would be the following;
@@ -156,7 +173,7 @@ This definition simply means that the root route '/' is mapped to
 **Important Note**: If `validate()` function returns an instance of
 `Response`, then `hello()` function won't be called
 
-### Route grouping
+### Grouping
 This is also one of the greatest feature of glim. People always want to
 create grouped routes. The simplest route grouping would be the
 following;
@@ -177,6 +194,10 @@ function has a filter namely `check_auth` as you noticed.
 
 **Important Note**: In route grouping, you need to define filters for
 each endpoint repeatedly for not having ambiguous definition for routes.
+
+## Request & Response
+
+## Views
 
 ## Controllers
 The controllers are no different than any other MVC framework's
@@ -339,8 +360,6 @@ Extending `Facade` is completely optional but highly recommended. If `Facade` ex
 The name convention is the following;
 - The class to be instantiated and registered should have name with `<module>Extension` and the facade name should be same as module name if facades are used. Otherwise, there aren't any conventions
 
-## Internal Framework Components
-### Facades
-### The registry
-### Database & ORM
-
+## Database & ORM
+## Facades
+## The Registry
