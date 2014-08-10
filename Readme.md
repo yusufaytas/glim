@@ -81,7 +81,7 @@ app                  -> web application sources
 ## Configuration
 Glim has configuration module for application wide constants. The default configuration resides in `app/config/default.py`. The config structure is the following;
 
-```
+```python
 # config.py
 extensions = [
     # bunch of extensions to be loaded up when web server starts
