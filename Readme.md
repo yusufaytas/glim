@@ -47,6 +47,11 @@ Generate a new app
 $ python glim.py new
 ```
 
+Copy an alias of default configuration namely the environment
+```
+$ cp app/config/default.py app/config/development.py
+```
+
 Start the web server
 ```
 $ python glim.py start
@@ -54,6 +59,24 @@ $ python glim.py start
 
 NOTE: PyPI integration will be finished after first release for easy to
 install
+
+## App structure
+In glim, the `new` command generates an app folder with the following folder structure;
+```
+app                  -> web application sources
+    - config         -> configuration sources
+        - default.py -> a sample configuration file
+    - static         -> folder for js, css, img, etc.
+    - storage        -> folder for template caches, logs, etc.
+    - views          -> folder for jinja2 templates
+    commands.py      -> app commands
+    controllers.py   -> app controllers
+    models.py        -> app SQLAlchemy models
+    routes.py        -> app routes
+    services.py      -> app services that provide model-controller relations
+    start.py         -> functions run before the web app starts
+    ext              -> extensions folder for importing glim extensions
+```
 
 ## Configuration
 Glim has configuration module for application wide constants. The default configuration resides in `app/config/default.py`. The config structure is the following;
@@ -129,8 +152,6 @@ $ python glim.py --host 127.0.0.1 --port 8080 --env development
 ```
 
 This loads configuration of `app/config/development.py` config.
-
-## App structure
 
 ## Routing
 Glim has powerful routing feature which developers can define routes
