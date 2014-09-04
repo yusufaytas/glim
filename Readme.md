@@ -39,12 +39,12 @@ $ . venv/bin/activate
 
 Install dependencies
 ```
-$ pip install -r reqs
+$ pip install glim
 ```
 
 Generate a new app
 ```
-$ python glim.py new
+$ glim new
 ```
 
 Copy an alias of default configuration namely the environment
@@ -54,11 +54,8 @@ $ cp app/config/default.py app/config/development.py
 
 Start the web server
 ```
-$ python glim.py start
+$ glim start
 ```
-
-NOTE: PyPI integration will be finished after first release for easy to
-install
 
 ## App structure
 In glim, the `new` command generates an app folder with the following folder structure;
