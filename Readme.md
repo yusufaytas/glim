@@ -97,27 +97,44 @@ config = {
 
     # database configuration
     'db' : {
-        'default' : {
-            'driver' : 'mysql',
-            'host' : 'localhost',
-            'schema' : 'test',
-            'user' : 'root',
-            'password' : '',
-        },
+        # 'default' : {
+        #   'driver' : 'mysql',
+        #   'host' : 'localhost',
+        #   'schema' : 'test',
+        #   'user' : 'root',
+        #   'password' : '',
+        # },
     },
 
-    # app specific configurations
-    # reloader: detects changes in the code base and automatically restarts web server
-    # debugger: enable werkzeug's default debugger
+    'orm' : True,
+    
+    'log' : {
+        # 'level' : 'info',
+        # 'format' : '[%(levelname)s] : %(message)s',
+        # 'file' : 'app/storage/logs/debug.log'
+    },
 
-    'glim' : {
+    'views' : {
+        # package to be loaded by jinja2
+        'package' : 'app.views'
+    },
+
+    'sessions' : {
+        # session id prefix
+        'id_header' : 'glim_session',
+        'path' : glim.paths.STORAGE_PATH,
+    },
+    
+    'app' : {
         'reloader' : True,
-        'debugger' : True
+        'debugger' : True,
+        'static' : {
+            'path' : glim.paths.STATIC_PATH,
+            'url'  : '/static'
+        }
     }
 }
 ```
-
-In `extensions` list, there will be enabled extensions which have extension name like `gredis`.
 
 In `config` dict, there are configurations for extensions, db and glim.
 
@@ -140,12 +157,12 @@ In glim, the default environment can't be used because it is a **sample** of con
 $ cp app/config/default.py app/config/development.py
 ```
 
-Now, we have a development environment. We can start a web server with a defined environment by following;
+Now, we have a development environment. Glim can start a web server with a defined environment by following;
 ```
-$ python glim.py --host 127.0.0.1 --port 8080 --env development
+$ glim start --host 127.0.0.1 --port 8080 --env development
 ```
 
-This loads configuration of `app/config/development.py` config.
+This command loads configuration of `app/config/development.py` config.
 
 ## Routing
 Glim has powerful routing feature which developers can define routes
@@ -319,9 +336,6 @@ Currently, it is needed to write config of extension in main config file in exte
 
 ```python
 #config.py
-extensions = [
-    'gredis'
-]
 config = {
     'extensions' = {
         'gredis' : {
@@ -331,7 +345,8 @@ config = {
                 'db' : 0
             }
         }
-    }
+    },
+    # ...
 }
 ```
 
@@ -339,7 +354,10 @@ An example of a redis extension would be the following;
 
 ```python
 # ext/gredis.py
-from glim.core import Extension, Facade
+from glim.core import Facade
+from glim.component import Extension
+from glim.facades import Log
+
 import redis
 
 class GredisExtension(Extension):
@@ -349,20 +367,34 @@ class GredisExtension(Extension):
         self.connections = {}
 
         for k, config in self.config.items():
-            self.connections[k] = redis.StrictRedis(
-                host = config['host'],
-                port = config['port'],
-                db = config['db']
-            )
+            self.connections[k] = self.connect(config)
 
     def __getattr__(self, attr):
-        return getattr(self.connections[self.active], attr)
+        try:
+            return getattr(self.connections[self.active], attr)
+        except redis.RedisError, e:
+            Log.error(e)
+            return None
 
     def connection(self, key = None):
         if key:
             self.active = key
         else:
             self.active = 'default'
+
+    def connect(self, config):
+        try:
+            connection = redis.Redis(
+                host = config['host'],
+                port = config['port'],
+                db = config['db'])
+
+            connection.ping()
+            return connection
+
+        except redis.RedisError, e:
+            Log.error(e)
+            return None
 
 class Gredis(Facade):
     pass
