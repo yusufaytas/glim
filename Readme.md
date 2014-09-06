@@ -60,19 +60,19 @@ $ glim start
 ## App structure
 In glim, the `new` command generates an app folder with the following folder structure;
 ```
-app                  -> web application sources
-    - config         -> configuration sources
-        - default.py -> a sample configuration file
-    - static         -> folder for js, css, img, etc.
-    - storage        -> folder for template caches, logs, etc.
-    - views          -> folder for jinja2 templates
-    commands.py      -> app commands
-    controllers.py   -> app controllers
-    models.py        -> app SQLAlchemy models
-    routes.py        -> app routes
-    services.py      -> app services that provide model-controller relations
-    start.py         -> functions run before the web app starts
-    ext              -> extensions folder for importing glim extensions
+app
+├── commands.py    => custom command line utilities
+├── config         => configuration sources
+│   └── default.py => a sample default configuration
+├── controllers.py => controller sources
+├── models.py      => model layer sources
+├── routes.py      => application routes source
+├── services.py    => application services source
+├── static         => static folder to hold css,img,js,etc.
+├── start.py       => functions run before the web app starts
+└── storage        => storage folder for logs, sessions, etc.
+
+ext                => ext folder to keep extensions
 ```
 
 ## Configuration
