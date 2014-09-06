@@ -80,10 +80,8 @@ Glim has configuration module for application wide constants. The default config
 
 ```python
 # config.py
-extensions = [
-    # bunch of extensions to be loaded up when web server starts
-    # 'gredis'
-]
+import os
+import glim.paths
 
 config = {
 
