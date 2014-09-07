@@ -42,3 +42,7 @@ class Log:
 
 	def critical(self, msg):
 		logging.critical(colored(msg, 'red', attrs = ['reverse']))
+
+
+GLIM_LOGGER = Log() #This logger will be used throughout glim framework.
+#I suggest creating a new logger to the developer with it's application name probably.
